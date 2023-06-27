@@ -1,0 +1,44 @@
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.header-button-container{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    margin: 10px 0 10px 0;
+}
+
+.perfect-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.is-read {
+    color: green;
+}
+
+.not-read {
+    color: red;
+}
+
+
+.center {
+    text-align: center;
+}
