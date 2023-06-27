@@ -7,7 +7,7 @@
                     style="margin-left: 10px"
                     class="mdl-button mdl-js-button mdl-button--raised
                     <%="categories".equals(request.getParameter("action"))
-                    || "login".equals(request.getParameter("action")) || "createCategory".equals(request.getParameter("action"))?"mdl-button--accent":"mdl-button--colored"%>">
+                    || "login".equals(request.getParameter("action")) || "createCategory".equals(request.getParameter("action")) || "deleteCategory".equals(request.getParameter("action"))?"mdl-button--accent":"mdl-button--colored"%>">
                 Categories
             </button>
             <button onclick="location.href='?action=users'"

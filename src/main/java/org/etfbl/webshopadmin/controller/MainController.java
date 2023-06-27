@@ -74,7 +74,6 @@ public class MainController extends HttpServlet {
                         address = "/WEB-INF/pages/create_category.jsp";
                     }
                     case "insertCategory" -> {
-                        address = "/WEB-INF/pages/create_category.jsp";
                         String name = request.getParameter("name");
                         String parentCategoryId = request.getParameter("parentCategoryId");
                         if (Utils.isBlank(name)) {
@@ -91,7 +90,19 @@ public class MainController extends HttpServlet {
                             }
                             address = "/WEB-INF/pages/create_category.jsp";
                         }
+                    }
+                    case "deleteCategory" -> {
+                        address = "/WEB-INF/pages/categories.jsp";
+                        Long categoryId = Long.valueOf(request.getParameter("id"));
+                        try {
+                            CategoryDao.delete(categoryId);
+                            session.setAttribute(NOTIFICATION, "Category deleted");
 
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            session.setAttribute(NOTIFICATION, "Error deleting category");
+                            address = "/WEB-INF/pages/create_category.jsp?action=error";
+                        }
                     }
                     case "users" -> {
                         address = "/WEB-INF/pages/users.jsp";

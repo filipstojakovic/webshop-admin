@@ -20,11 +20,9 @@ public class UserDao {
     public static final String SELECT_ALL = "select * from user";
     public static final String DELETE_BY_ID = "delete from user where id=?";
     public static final String SELECT_BY_ID = SELECT_ALL + " where id=?";
-
     public static final String INSERT_USER =
             "insert into user (username, password, first_name, last_name, email, " + "city, role_id, avatar_path) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
     private static final String UPDATE_USER = "update user set username=?, first_name=?, last_name=?, " +
             "email=?, city=? where id=?";
 
