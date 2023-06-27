@@ -17,6 +17,13 @@
     <%@include file="../header.jsp" %>
     <main class="mdl-layout__content">
         <div class="page-content">
+
+            <a href="?action=createUser" style="margin: 10px">
+                <button type="submit" name="submit"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    Create User
+                </button>
+            </a>
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%">
                 <thead>
                 <tr>
@@ -24,8 +31,8 @@
                     <th class="mdl-data-table__cell--non-numeric">Full Name</th>
                     <th class="mdl-data-table__cell--non-numeric">Email</th>
                     <th class="mdl-data-table__cell--non-numeric">City</th>
-                    <th class="mdl-data-table__cell--non-numeric">Action</th>
-
+                    <th class="td-cell-fit"></th>
+                    <th class="td-cell-fit"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,10 +47,22 @@
                     </td>
                     <td class="mdl-data-table__cell--non-numeric"><%=user.getCity()%>
                     </td>
-                    <%--    TODO: href--%>
-                    <td class="mdl-data-table__cell--non-numeric"><a href="send_message.jsp?id=<%=user.getId()%>">Send
-                        message
-                        &gt&gt</a></td>
+                    <td class=" mdl-data-table__cell--non-numeric td-cell-fit">
+                        <a href="?action=editUser&id=<%=user.getId()%>">
+                            <button type="submit" name="submit"
+                                    class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                Edit
+                            </button>
+                        </a>
+                    </td>
+                    <td class=" mdl-data-table__cell--non-numeric td-cell-fit">
+                        <a href="?action=deleteUser&id=<%=user.getId()%>">
+                            <button type="submit" name="submit"
+                                    class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                                Delete
+                            </button>
+                        </a>
+                    </td>
                 </tr>
                 <% } %>
                 </tbody>

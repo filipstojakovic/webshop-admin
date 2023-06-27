@@ -18,6 +18,10 @@
     margin: 10px 0 10px 0;
 }
 
+.td-cell-fit {
+    width: 1%;
+}
+
 .perfect-center {
     display: flex;
     justify-content: center;

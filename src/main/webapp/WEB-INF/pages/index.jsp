@@ -1,6 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<jsp:useBean id="userAdminBean" type="org.etfbl.webshopadmin.bean.UserAdminBean" scope="session"/>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +10,14 @@
 </head>
 <body>
 <div class="mdl-layout mdl-layout--fixed-header">
-    <%@include file="../header.jsp" %>
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title">Admin Panel</span>
+        </div>
+    </header>
     <main class="mdl-layout__content">
         <div class="page-content">
+
             <h3>Login</h3>
             <form action="?action=login" method="post" class="center">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

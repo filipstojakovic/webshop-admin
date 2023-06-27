@@ -10,4 +10,8 @@ public class UserService {
     public List<User> findAll(){
         return UserDao.findAll();
     }
+
+    public User findById(Long id){
+        return UserDao.findById(id);
+    }
 }

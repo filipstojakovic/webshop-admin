@@ -1,12 +1,12 @@
 <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">Customer support</span>
+        <span class="mdl-layout-title">Admin Panel</span>
         <% if (userAdminBean.isLoggedIn()) { %>
         <div class="header-button-container">
             <button onclick="location.href='?action=categories'"
                     style="margin-left: 10px"
                     class="mdl-button mdl-js-button mdl-button--raised
-                    <%="categories".equals(request.getParameter("action"))?"mdl-button--accent":"mdl-button--colored"%>">
+                    <%="categories".equals(request.getParameter("action")) || "login".equals(request.getParameter("action"))?"mdl-button--accent":"mdl-button--colored"%>">
                 Categories
             </button>
             <button onclick="location.href='?action=users'"

@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.etfbl.webshopadmin.bean.UserAdminBean;
+import org.etfbl.webshopadmin.dao.UserDao;
+import org.etfbl.webshopadmin.dto.User;
 import org.etfbl.webshopadmin.service.CategoryService;
 import org.etfbl.webshopadmin.service.LogService;
 import org.etfbl.webshopadmin.service.UserAdminService;
@@ -31,8 +33,7 @@ public class MainController extends HttpServlet {
         if (action == null || "".equals(action)) {
             session.setAttribute("userAdminBean", new UserAdminBean()); //TODO: mozda ce smetati
             address = "/WEB-INF/pages/index.jsp";
-        }
-        else if ("logout".equals(action)) {
+        } else if ("logout".equals(action)) {
             session.invalidate();
             address = "/WEB-INF/pages/index.jsp";
         } else if (action.equals("login")) {
@@ -47,21 +48,45 @@ public class MainController extends HttpServlet {
             }
         } else {
             UserAdminBean userBean = (UserAdminBean) session.getAttribute("userAdminBean");
+            UserService userService = new UserService();
+            session.setAttribute("userService", userService);
+            CategoryService categoryService = new CategoryService();
+            session.setAttribute("categoryService", categoryService);
+            LogService logService = new LogService();
+            session.setAttribute("logService", logService);
+
             if (userBean == null || !userBean.isLoggedIn()) {
                 address = "/WEB-INF/pages/index.jsp";
             } else {
                 switch (action) {
                     case "categories" -> {
-                        session.setAttribute("categoryService", new CategoryService());
                         address = "/WEB-INF/pages/categories.jsp";
                     }
                     case "users" -> {
-                        session.setAttribute("userService", new UserService());
+                        address = "/WEB-INF/pages/users.jsp";
+                    }
+                    case "createUser" -> {
+                        session.setAttribute("userBean", new User());
+                        address = "/WEB-INF/pages/create_user.jsp";
+                    }
+                    case "addNewUser" -> {
+                        //TODO: do check
+                        address = "/WEB-INF/pages/users.jsp";
+                    }
+                    case "editUser" -> {
+                        Long userId = Long.valueOf(request.getParameter("id"));
+                        address = "/WEB-INF/pages/edit_user.jsp";
+                    }
+                    case "deleteUser" -> {
+                        Long userId = Long.valueOf(request.getParameter("id"));
+                        UserDao.delete(userId);
                         address = "/WEB-INF/pages/users.jsp";
                     }
                     case "logs" -> {
-                        session.setAttribute("logService", new LogService());
                         address = "/WEB-INF/pages/logs.jsp";
+                    }
+                    default -> {
+                        address = "/WEB-INF/pages/error.jsp";
                     }
                 }
             }
