@@ -12,7 +12,7 @@
             <button onclick="location.href='?action=users'"
                     style="margin-left: 10px"
                     class="mdl-button mdl-js-button mdl-button--raised
-                    <%="users".equals(request.getParameter("action"))?"mdl-button--accent":"mdl-button--colored"%>">
+                    <%="users".equals(request.getParameter("action")) || "deleteUser".equals(request.getParameter("action"))?"mdl-button--accent":"mdl-button--colored"%>">
                 Users
             </button>
             <button onclick="location.href='?action=logs'"

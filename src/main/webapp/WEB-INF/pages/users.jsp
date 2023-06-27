@@ -37,8 +37,7 @@
                 </thead>
                 <tbody>
                 <% for (User user : userService.findAll()) {%>
-                <%--    TODO: on click--%>
-                <tr onclick="location.href='send_message.jsp?id=<%=user.getId()%>'">
+                <tr>
                     <td class="mdl-data-table__cell--non-numeric"><%=user.getUsername()%>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric"><%=user.getFullName()%>

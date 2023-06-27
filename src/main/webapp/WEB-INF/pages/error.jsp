@@ -14,7 +14,8 @@
 
     <main class="mdl-layout__content">
         <div class="page-content">
-            <h2>This is an error page!</h2>
+            <h3>There was an error!</h3>
+            <h4><%=session.getAttribute("notification")%></h4>
             <a href="?action=categories">
                 <button type="submit" name="submit"
                         class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">

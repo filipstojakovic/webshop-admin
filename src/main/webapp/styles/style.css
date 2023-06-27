@@ -11,10 +11,10 @@
     align-items: center;
 }
 
-.header-button-container{
+.header-button-container {
     display: flex;
     align-items: center;
-    gap:10px;
+    gap: 10px;
     margin: 10px 0 10px 0;
 }
 
@@ -34,11 +34,11 @@
     align-items: center;
 }
 
-.is-read {
+.not-error {
     color: green;
 }
 
-.not-read {
+.is-error {
     color: red;
 }
 

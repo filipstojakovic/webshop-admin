@@ -37,10 +37,22 @@
                     </td>
                     <td class="mdl-data-table__cell--non-numeric"><%=category.getParentCategoryId()%>
                     </td>
-                    <%--    TODO: href--%>
-                    <td class="mdl-data-table__cell--non-numeric"><a href="send_message.jsp?id=<%=category.getId()%>">Send
-                        message
-                        &gt&gt</a></td>
+                    <td class=" mdl-data-table__cell--non-numeric td-cell-fit">
+                        <a href="?action=editUser&id=<%=category.getId()%>">
+                            <button type="submit" name="submit"
+                                    class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                Edit
+                            </button>
+                        </a>
+                    </td>
+                    <td class=" mdl-data-table__cell--non-numeric td-cell-fit">
+                        <a href="?action=deleteUser&id=<%=category.getId()%>">
+                            <button type="submit" name="submit"
+                                    class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                                Delete
+                            </button>
+                        </a>
+                    </td>
                 </tr>
                 <% } %>
                 </tbody>

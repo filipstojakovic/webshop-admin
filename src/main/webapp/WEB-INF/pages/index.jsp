@@ -30,8 +30,8 @@
                     <input class="mdl-textfield__input" type="password" id="password" name="password" required>
                 </div>
                 <br>
-                <%--                <p style="color: red"><%=session.getAttribute("notification").toString()%>--%>
-                <%--                </p>--%>
+                <p style="color: red"><%=session.getAttribute("notification").toString()%>
+                </p>
                 <button type="submit" name="submit"
                         class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                     Login
