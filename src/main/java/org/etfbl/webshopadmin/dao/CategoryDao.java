@@ -3,6 +3,7 @@ package org.etfbl.webshopadmin.dao;
 import org.etfbl.webshopadmin.config.DatabaseConnection;
 import org.etfbl.webshopadmin.dto.Category;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,13 @@ public class CategoryDao {
 
     public static final String SELECT_ALL = "select * from category";
 
-    public static List<Category> findAll(){
+    public static final String INSERT_CATEGORY = "insert into category (name, parent_category_id) " + "VALUES (?, ?)";
+
+    //SELECT c.id, c.name AS category_name, p.name AS parent_category_name
+    //FROM category c
+    //LEFT JOIN category p ON c.parent_category_id = p.id;
+
+    public static List<Category> findAll() {
         List<Category> categories = new ArrayList<>();
         try {
             Connection connection = DatabaseConnection.getInstance().getConnection();
@@ -29,6 +36,15 @@ public class CategoryDao {
             ex.printStackTrace();
         }
         return categories;
+    }
+
+    public static void insertCategory(String name,
+                                      Long parentId) throws Exception {
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        Object[] values = {name, parentId};
+        PreparedStatement statement = DAOUtil.prepareStatement(connection, INSERT_CATEGORY, true, values);
+        int result = statement.executeUpdate();
+        statement.close();
     }
 
     private static Category extractCategory(ResultSet rs) throws SQLException {

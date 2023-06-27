@@ -76,7 +76,7 @@ public class UserDao {
         return findById(id);
     }
 
-    public static void addUser(User user) throws Exception {
+    public static void insertUser(User user) throws Exception {
         Connection connection = DatabaseConnection.getInstance().getConnection();
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         Object[] values = {user.getUsername(), encryptedPassword, user.getFirstName(), user.getLastName(),

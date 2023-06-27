@@ -18,35 +18,36 @@
     <main class="mdl-layout__content">
         <div class="page-content">
 
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%">
+            <a href="?action=createCategory" style="margin: 10px">
+                <button type="submit" name="submit"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    Create Category
+                </button>
+            </a>
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                 <tr>
-                    <th class="mdl-data-table__cell--non-numeric">id</th>
-                    <th class="mdl-data-table__cell--non-numeric">name</th>
-                    <th class="mdl-data-table__cell--non-numeric">parent id</th>
-                    <th class="mdl-data-table__cell--non-numeric">Action</th>
+                    <th class="mdl-data-table__cell--non-numeric">Category name</th>
+                    <th class="mdl-data-table__cell--non-numeric"></th>
+                    <th class="mdl-data-table__cell--non-numeric"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for (Category category : categoryService.findAll()) {%>
-                <%--    TODO: on click--%>
-                <tr onclick="location.href='send_message.jsp?id=<%=category.getId()%>'">
-                    <td class="mdl-data-table__cell--non-numeric"><%=category.getId()%>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric" style="margin: 0 10px 0 10px">
+                        <%=category.getName()%>
                     </td>
-                    <td class="mdl-data-table__cell--non-numeric"><%=category.getName()%>
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric"><%=category.getParentCategoryId()%>
-                    </td>
-                    <td class=" mdl-data-table__cell--non-numeric td-cell-fit">
-                        <a href="?action=editUser&id=<%=category.getId()%>">
+                    <td class=" mdl-data-table__cell--non-numeric">
+                        <a href="?action=editCategory&id=<%=category.getId()%>">
                             <button type="submit" name="submit"
                                     class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                                 Edit
                             </button>
                         </a>
                     </td>
-                    <td class=" mdl-data-table__cell--non-numeric td-cell-fit">
-                        <a href="?action=deleteUser&id=<%=category.getId()%>">
+                    <td class=" mdl-data-table__cell--non-numeric">
+                        <a href="?action=deleteCategory&id=<%=category.getId()%>">
                             <button type="submit" name="submit"
                                     class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
                                 Delete

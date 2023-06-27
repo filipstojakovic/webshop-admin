@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.etfbl.webshopadmin.bean.UserAdminBean;
+import org.etfbl.webshopadmin.dao.CategoryDao;
 import org.etfbl.webshopadmin.dao.UserDao;
 import org.etfbl.webshopadmin.dto.User;
 import org.etfbl.webshopadmin.service.CategoryService;
@@ -69,6 +70,29 @@ public class MainController extends HttpServlet {
                     case "categories" -> {
                         address = "/WEB-INF/pages/categories.jsp";
                     }
+                    case "createCategory" -> {
+                        address = "/WEB-INF/pages/create_category.jsp";
+                    }
+                    case "insertCategory" -> {
+                        address = "/WEB-INF/pages/create_category.jsp";
+                        String name = request.getParameter("name");
+                        String parentCategoryId = request.getParameter("parentCategoryId");
+                        if (Utils.isBlank(name)) {
+                            session.setAttribute(NOTIFICATION, "Error! Missing field(s)");
+                            address = "/WEB-INF/pages/create_category.jsp";
+                        } else {
+                            Long parentId = Utils.isBlank(parentCategoryId) ? null : Long.parseLong(parentCategoryId);
+                            try {
+                                CategoryDao.insertCategory(name, parentId);
+                                session.setAttribute(NOTIFICATION, "Category created");
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                                session.setAttribute(NOTIFICATION, "Error creating category");
+                            }
+                            address = "/WEB-INF/pages/create_category.jsp";
+                        }
+
+                    }
                     case "users" -> {
                         address = "/WEB-INF/pages/users.jsp";
                     }
@@ -89,14 +113,13 @@ public class MainController extends HttpServlet {
                         } else {
                             User newUser = new User(null, username, password, firstname, lastname, email, city);
                             try {
-                                UserDao.addUser(newUser);
-                                address = "/WEB-INF/pages/create_user.jsp";
+                                UserDao.insertUser(newUser);
                                 session.setAttribute(NOTIFICATION, "User created");
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                                 session.setAttribute(NOTIFICATION, "Error creating user");
-                                address = "/WEB-INF/pages/create_user.jsp";
                             }
+                            address = "/WEB-INF/pages/create_user.jsp";
                         }
                     }
                     case "editUser" -> {
@@ -119,13 +142,12 @@ public class MainController extends HttpServlet {
                             try {
                                 User user = UserDao.updateUser(userId, username, firstname, lastname, email, city);
                                 session.setAttribute("user", user);
-                                address = "/WEB-INF/pages/edit_user.jsp";
                                 session.setAttribute(NOTIFICATION, "User updated");
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                                 session.setAttribute(NOTIFICATION, "Error while updating user!");
-
                             }
+                            address = "/WEB-INF/pages/edit_user.jsp";
                         }
                     }
                     case "deleteUser" -> {
