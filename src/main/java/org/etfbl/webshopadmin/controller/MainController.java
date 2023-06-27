@@ -7,9 +7,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.etfbl.webshopadmin.bean.CategoryBean;
 import org.etfbl.webshopadmin.bean.UserAdminBean;
 import org.etfbl.webshopadmin.dao.CategoryDao;
 import org.etfbl.webshopadmin.dao.UserDao;
+import org.etfbl.webshopadmin.dto.Category;
 import org.etfbl.webshopadmin.dto.User;
 import org.etfbl.webshopadmin.service.CategoryService;
 import org.etfbl.webshopadmin.service.LogService;
@@ -91,6 +93,41 @@ public class MainController extends HttpServlet {
                             address = "/WEB-INF/pages/create_category.jsp";
                         }
                     }
+                    case "editCategory" -> {
+                        Long categoryId = Long.valueOf(request.getParameter("id"));
+                        Category category = CategoryDao.findById(categoryId);
+                        if (category == null) {
+                            session.setAttribute(NOTIFICATION, "Error finding category");
+                            address = "/WEB-INF/pages/error.jsp";
+                        } else {
+                            CategoryBean categoryBean = new CategoryBean(categoryId, category.getName(),
+                                    category.getParentCategoryId());
+                            session.setAttribute("categoryBean", categoryBean);
+                            address = "/WEB-INF/pages/edit_category.jsp";
+                        }
+                    }
+                    case "saveEditCategory" -> {
+                        Long categoryId = Long.valueOf(request.getParameter("id"));
+                        String name = request.getParameter("name");
+                        String parentId = request.getParameter("categoryParentId");
+                        if (Utils.isBlank(name)) {
+                            session.setAttribute(NOTIFICATION, "Error! Missing field(s)");
+                            address = "/WEB-INF/pages/edit_category.jsp";
+                        } else {
+                            Long categoryParentId = Utils.isBlank(parentId) ? null : Long.parseLong(parentId);
+                            try {
+                                Category category = CategoryDao.updateCategory(categoryId, name, categoryParentId);
+                                session.setAttribute("categoryBean", new CategoryBean(categoryId, category.getName(),
+                                        category.getParentCategoryId()));
+                                session.setAttribute(NOTIFICATION, "Category updated");
+                            } catch (Exception ex) {
+                                session.setAttribute(NOTIFICATION, "Error updating");
+                                ex.printStackTrace();
+                            }
+
+                            address = "/WEB-INF/pages/edit_category.jsp";
+                        }
+                    }
                     case "deleteCategory" -> {
                         address = "/WEB-INF/pages/categories.jsp";
                         Long categoryId = Long.valueOf(request.getParameter("id"));
@@ -136,8 +173,13 @@ public class MainController extends HttpServlet {
                     case "editUser" -> {
                         Long userId = Long.valueOf(request.getParameter("id"));
                         User user = UserDao.findById(userId);
-                        session.setAttribute("user", user);
-                        address = "/WEB-INF/pages/edit_user.jsp";
+                        if (user == null) {
+                            session.setAttribute(NOTIFICATION, "Error finding user");
+                            address = "/WEB-INF/pages/error.jsp";
+                        } else {
+                            session.setAttribute("user", user);
+                            address = "/WEB-INF/pages/edit_user.jsp";
+                        }
                     }
                     case "saveEditUser" -> {
                         Long userId = Long.valueOf(request.getParameter("id"));

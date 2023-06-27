@@ -16,6 +16,9 @@ public class CategoryDao {
     public static final String SELECT_ALL = "select * from category";
     public static final String INSERT_CATEGORY = "insert into category (name, parent_category_id) " + "VALUES (?, ?)";
     public static final String DELETE_BY_ID = "delete from category where id=?";
+    public static final String SELECT_BY_ID = SELECT_ALL + " where id=?";
+    private static final String UPDATE_CATEGORY = "update category set name=?, parent_category_id=?" +
+            " where id=?";
 
     //SELECT c.id, c.name AS category_name, p.name AS parent_category_name
     //FROM category c
@@ -56,5 +59,30 @@ public class CategoryDao {
     private static Category extractCategory(ResultSet rs) throws SQLException {
         return new Category(rs.getLong("id"), rs.getString("name"), rs.getLong("parent_category_id"));
 
+    }
+
+    public static Category findById(Long categoryId) {
+        Category category = null;
+        try {
+            Connection connection = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement statement = DAOUtil.prepareStatement(connection, SELECT_BY_ID, false, categoryId);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                category = extractCategory(rs);
+            }
+            statement.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return category;
+    }
+
+    public static Category updateCategory(Long categoryId, String name, Long categoryParentId) throws SQLException, IOException, ClassNotFoundException {
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        Object[] values = {name,categoryParentId,categoryId};
+        PreparedStatement statement = DAOUtil.prepareStatement(connection, UPDATE_CATEGORY, true, values);
+        int result = statement.executeUpdate();
+        statement.close();
+        return findById(categoryId);
     }
 }
