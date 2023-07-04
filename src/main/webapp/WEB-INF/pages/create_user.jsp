@@ -37,7 +37,7 @@
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <label class="mdl-textfield__label" for="email">Email</label>
-                    <input class="mdl-textfield__input" type="text" id="email" name="email" required>
+                    <input class="mdl-textfield__input" type="email" id="email" name="email" required>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <label class="mdl-textfield__label" for="city">City</label>
